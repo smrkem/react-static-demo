@@ -1,13 +1,11 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  context: path.resolve(__dirname, 'src'),
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -17,7 +15,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react']
+            presets: ['env', 'stage-2', 'react']
           }
         }
       },
@@ -31,12 +29,8 @@ module.exports = {
     disableHostCheck: true
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './index.html'
-    }),
     new ExtractTextPlugin({
-      filename: 'styles.css',
-      allChunks: true
+      filename: 'styles.css'
     })
   ]
 }
