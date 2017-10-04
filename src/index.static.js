@@ -1,9 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
-import { StaticRouter, Route } from 'react-router-dom'
+import { StaticRouter, BrowserRouter } from 'react-router-dom'
 import Routes from './components/Routes/Routes'
 import Template from './Template'
+
 import { paths } from './SiteConfig'
 import 'normalize.css'
 import './base.css'
@@ -19,7 +20,7 @@ module.exports = locals => {
     const templateProps = {
       css: assets.filter(value => value.match(/\.css$/)),
       js: assets.filter(value => value.match(/\.js$/)),
-      body: renderToString(<MyApp locals={locals} />),
+      body: renderToString(<App locals={locals} />),
       title: paths[locals.path].title,
       description: paths[locals.path].description
     }
@@ -27,5 +28,5 @@ module.exports = locals => {
 }
 
 if (typeof document != 'undefined') {
-  render(<App />, document.getElementById('app'))
+  render(<BrowserRouter><Routes /></BrowserRouter>, document.getElementById('app'))
 }

@@ -12,7 +12,7 @@ module.exports = {
   },
 
   output: {
-    filename: '[name].js',
+    filename: '[name].[chunkhash:6].js',
     path: DIST_DIR,
     libraryTarget: 'umd',
   },
@@ -24,7 +24,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react']
+            presets: ['env', 'stage-2', 'react']
           }
         }
       },
@@ -36,18 +36,17 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: 'styles.css',
+      filename: 'styles.[chunkhash:6].css',
       allChunks: true
     }),
     new StaticSiteGeneratorPlugin({
         paths: [
             '/',
-            '/about'
+            '/page1',
+            '/page2'
         ],
-        locals: {
-          greet: 'Hello'
-        }
+        locals: { }
     })
   ]
-      
+
 }
